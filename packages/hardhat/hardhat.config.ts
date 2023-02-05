@@ -42,27 +42,16 @@ const config: HardhatUserConfig = {
       url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`, 
       accounts
     },
-    ropsten: {
-      url: process.env.ROPSTEN_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    goerli: {
+      chainId: 5,
+      url: "https://eth-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}",
+      accounts,
     },
-    rinkeby: {
-        url: `https://rinkeby.infura.io/v3/${process.env.INFURA_API_KEY}`, 
-        accounts,
+    hyperspace: {
+      chainId: 3141,
+      url: "https://api.hyperspace.node.glif.io/rpc/v1",
+      accounts,
     },
-    kovan: {
-        url: `https://kovan.infura.io/v3/${process.env.INFURA_API_KEY}`, 
-        accounts,
-    },
-    polygon: {
-        url: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`, 
-        accounts
-    },
-    mumbai: {
-        url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`, 
-        accounts
-    }
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
