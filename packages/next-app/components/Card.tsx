@@ -31,7 +31,7 @@ export default function Card({
         </p>
         <input
           type="text"
-          placeholder="Enter Amount"
+          placeholder="Enter amount to bridge"
           className="border border-gray-400 p-2 min-w-full rounded-lg bg-inherit"
           value={amount}
           onChange={(e) => setAmount(Number(e.target.value))}
