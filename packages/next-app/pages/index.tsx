@@ -15,7 +15,7 @@ return (
         </div>
       </header>
       <main className="flex justify-center mt-20">
-        <div className="w-1/3 p-4 border border-gray-400 bg-white shadow-lg rounded-lg text-center mr-8">
+        <div className="w-1/3 p-4 border border-gray-400 bg-white shadow-lg rounded-lg text-center ">
           <h2 className="text-lg font-bold">Chain 1</h2>
           <div className="mt-4">
             <p className="text-gray-600">Token Balance: <span className="font-bold text-blue-500">100</span></p>
