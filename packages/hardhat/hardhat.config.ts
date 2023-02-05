@@ -22,13 +22,13 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 
 const config: HardhatUserConfig = {
   solidity: "0.8.9",
-  defaultNetwork: "hardhat",
   networks: {
     localhost: {
       url: "http://127.0.0.1:8545",
       accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
     hardhat: {
+      accounts
       // forking: {
       //   enabled: true,
       //   url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
@@ -44,7 +44,7 @@ const config: HardhatUserConfig = {
     },
     goerli: {
       chainId: 5,
-      url: "https://eth-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}",
+      url: `https://eth-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
       accounts,
     },
     hyperspace: {
