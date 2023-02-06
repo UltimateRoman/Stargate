@@ -26,13 +26,13 @@ const originatorHyperspace = new ethers.Contract(Originator_Hyperspace, Stargate
 const acquirerHyperspace = new ethers.Contract(Acquirer_Hyperspace, StargateAcquirerAbi, hyperspaceProvider);
 
 originatorGoerli.on("DispatchMessage", async (message, sender, recipient) => {
-  const tx = await acquirerHyperspace.connect(wallet).receiveMessage(message, sender, recipient);
+  const tx = await acquirerHyperspace.connect(hyperspaceWallet).receiveMessage(message, sender, recipient);
   await tx.wait();
   console.log("Received message from Goerli", message);
 });
 
 originatorHyperspace.on("DispatchMessage", async (message, sender, recipient) => {
-  const tx = await acquirerGoerli.connect(wallet).receiveMessage(message, sender, recipient);
+  const tx = await acquirerGoerli.connect(goerliWallet).receiveMessage(message, sender, recipient);
   await tx.wait();
   console.log("Received message from Hyperspace", message);
 });
