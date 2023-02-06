@@ -7,6 +7,9 @@ async function main() {
   const stargateAcquirer = await StargateAcquirer.deploy();
   await stargateAcquirer.deployed();
 
+  const RELAYER_ROLE = ethers.utils.id("RELAYER_ROLE");
+  await stargateAcquirer.grantRole(RELAYER_ROLE, "0x171ca1f2fbd10df7850887d57bdcdede08de21c3");
+
   if (network.config.chainId == 5) {
     console.log("Deployed Acquirer on Goerli at", stargateAcquirer.address);
   } else if (network.config.chainId == 3141) {

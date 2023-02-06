@@ -8,6 +8,7 @@
     "clean": "npm run clean -w @stargate/hardhat",
     "compile": "npm run compile -w @stargate/hardhat",
     "coverage": "npm run coverage -w @stargate/hardhat",
+    "relayer": "npm run relayer -w @stargate/relayer",
     "test": "npm run test -w @stargate/hardhat",
     "verify": "npm run verify -w @stargate/hardhat",
     "dev": "npm run dev -w @stargate/next-app",
@@ -15,7 +16,7 @@
     "start": "npm run start -w @stargate/next-app",
     "lint": "npm run lint -w @stargate/next-app"
   },
-  "author": "UltimateRoman",
+  "author": "Team Stargate",
   "license": "MIT",
   "workspaces": {
     "packages": [
@@ -25,14 +26,5 @@
       "**/hardhat",
       "**/hardhat/**"
     ]
-  },
-  "dependencies": {
-    "antd": "^5.1.7",
-    "react-epic-spinners": "^0.5.0"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.4.13",
-    "postcss": "^8.4.21",
-    "tailwindcss": "^3.2.4"
   }
 }

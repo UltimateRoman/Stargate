@@ -6,14 +6,19 @@ import "./base/MerkleTree.sol";
 contract StargateOriginator is MerkleTree {
     uint256 public immutable chainId;
 
-    event DispatchMessage(bytes32 message, address sender, address recipient);
+    event DispatchMessage(bytes message, address sender, address recipient);
+    event DispatchTransaction(bytes payload, address target);
 
     constructor() {
         chainId = block.chainid;
     }
 
-    function dispatchMessage(bytes32 _message, address _recipient) external {
-        addLeaf(_message);
+    function dispatchMessage(bytes calldata _message, address _recipient) external {
+        //addLeaf(_message);
         emit DispatchMessage(_message, msg.sender, _recipient);
+    }
+
+    function dispatchTransaction(bytes calldata _payload, address _target) external {
+        emit DispatchTransaction(_payload, _target);
     }
 }
