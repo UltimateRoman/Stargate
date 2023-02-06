@@ -27,7 +27,8 @@
     ]
   },
   "dependencies": {
-    "antd": "^5.1.7"
+    "antd": "^5.1.7",
+    "react-epic-spinners": "^0.5.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
