@@ -5,12 +5,46 @@ import styles from "../styles/Home.module.css";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import ChainCard from "../components/ChainCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PopUp from "../components/PopUp";
 import GitHubIcon from "../components/icons/GitHubIcon";
 
+import { useAccount, useContractRead  } from 'wagmi';
+import { OriginTokenAbi } from "../abis/OriginToken";
+import { DestinationTokenAbi } from "../abis/DestinationToken";
+import { Contract, ethers } from "ethers";
+
 const Home: NextPage = () => {
   const [showPopUp, setShowPopUp] = useState<boolean>(false);
+  const [goerliBalance, setGoerliBalance] = useState<string>("0");
+  const [hyperspaceBalance, setHyperspaceBalance] = useState<string>("0");
+  const [goerliToken, setGoerliToken] = useState<Contract>();
+  const [hyperspaceToken, setHyperspaceToken] = useState<Contract>();
+
+  const { address, isConnected } = useAccount();
+
+  useEffect(() => {
+    async function load() {
+      if (isConnected) {
+        const goerliProvider = new ethers.providers.JsonRpcProvider(
+          "https://rpc.ankr.com/eth_goerli"
+        );
+        const hyperspaceProvider = new ethers.providers.JsonRpcProvider(
+          "https://api.hyperspace.node.glif.io/rpc/v1"
+        );
+        const goerliToken = new ethers.Contract("0x04c2BF100ae20d3214520C7B548049AD6E210bBF", OriginTokenAbi, goerliProvider);
+        const hyperspaceToken = new ethers.Contract("0x04c2BF100ae20d3214520C7B548049AD6E210bBF", DestinationTokenAbi, hyperspaceProvider);
+        const goerliBalance = ethers.utils.formatEther(await goerliToken.balanceOf(address));
+        const hyperspaceBalance = ethers.utils.formatEther(await hyperspaceToken.balanceOf(address));
+        setGoerliToken(goerliToken);
+        setHyperspaceToken(hyperspaceToken);
+        setGoerliBalance(goerliBalance);
+        setHyperspaceBalance(hyperspaceBalance);
+      }
+    }
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [goerliBalance, hyperspaceBalance]);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-200">
@@ -26,22 +60,22 @@ const Home: NextPage = () => {
         ) : null}
         <ChainCard
           chainName="Goerli"
-          tokenBalance={200}
-          onApprove={() => {
-            alert("Approve");
+          tokenBalance={goerliBalance}
+          onApprove={async () => {
+            
           }}
           onBridge={() => {
-            alert("Bridge");
+            setShowPopUp(true);
           }}
         />
         <ChainCard
           chainName="Hyperspace"
-          tokenBalance={100}
-          onApprove={() => {
+          tokenBalance={hyperspaceBalance}
+          onApprove={async () => {
             alert("Approve");
           }}
           onBridge={() => {
-            alert("Bridge");
+            setShowPopUp(true);
           }}
         />
       </main>

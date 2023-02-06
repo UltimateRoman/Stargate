@@ -7,17 +7,42 @@ import {
   getDefaultWallets,
   RainbowKitProvider
 } from "@rainbow-me/rainbowkit";
-import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
+import { Chain, chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
-import { publicProvider } from "wagmi/providers/public";
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
+
+export const hyperspace = {
+  id: 3141,
+  name: 'Hyperspace',
+  network: 'hyperspace',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Filecoin',
+    symbol: 'tFIL',
+  },
+  rpcUrls: {
+    public: 'https://api.hyperspace.node.glif.io/rpc/v1',
+    default: 'https://api.hyperspace.node.glif.io/rpc/v1',
+  },
+  blockExplorers: {
+    etherscan: { name: 'filfox', url: 'https://hyperspace.filfox.info/en' },
+    default: { name: 'filfox', url: 'https://hyperspace.filfox.info/en' },
+  }
+} as Chain
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
-  [publicProvider()]
+  [chain.goerli, hyperspace],
+  [
+    jsonRpcProvider({
+      rpc: () => ({
+        http: `https://api.hyperspace.node.glif.io/rpc/v0`,
+      }),
+    }),
+  ]
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "Starter DApp",
+  appName: "Stargate Token Bridge",
   chains
 });
 

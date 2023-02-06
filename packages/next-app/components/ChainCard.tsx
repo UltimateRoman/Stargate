@@ -4,7 +4,7 @@ import Card from "./Card";
 
 interface ChainCardProps {
   chainName: string;
-  tokenBalance: number;
+  tokenBalance: string;
   onApprove?: () => void;
   onBridge?: () => void;
 }
